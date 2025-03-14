@@ -1,0 +1,44 @@
+format = """
+[](#{config.scheme:base03})\
+$username$hostname$conda\
+[](fg:#{config.scheme:base03} bg:#{config.scheme:base0D})\
+$directory\
+[](fg:#{config.scheme:base0D} bg:#{config.scheme:base0F})\
+$git_branch\
+$git_status\
+[ ](fg:#{config.scheme:base0F} bg:#{config.scheme:base00})\
+"""
+
+# Disable the blank line at the start of the prompt
+add_newline = false
+
+[username]
+show_always = true
+style_user = "fg:#{config.scheme:base06} bg:#{config.scheme:base03}"
+format = '[$user]($style)'
+disabled = false
+
+[hostname]
+ssh_only = false
+style = "fg:#{config.scheme:base06} bg:#{config.scheme:base03}"
+format = '[@$hostname ]($style)'
+disabled = false
+
+[conda]
+style = "fg:#{config.scheme:base06} bg:#{config.scheme:base03}"
+format = '[$symbol$environment]($style)'
+
+[directory]
+style = "fg:#{config.scheme:base00} bg:#{config.scheme:base0D}"
+format = "[ $path ]($style)"
+truncation_length = 3
+truncation_symbol = "…/"
+
+[git_branch]
+symbol = ""
+style = "fg:#{config.scheme:base00} bg:#{config.scheme:base0F}"
+format = '[ $symbol $branch ]($style)'
+
+[git_status]
+style = "fg:#{config.scheme:base00} bg:#{config.scheme:base0F}"
+format = '[$all_status$ahead_behind ]($style)'
