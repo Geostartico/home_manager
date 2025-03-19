@@ -8,10 +8,7 @@ home.homeDirectory = "/home/geostartico"; #  This value determines the Home Mana
   #
   # You should not change this value, even if you update Home Manager. If you do
   # want to update the value, then make sure to first check the Home Manager release notes.
-  home.stateVersion = "24.11"; # Please read the comment before changing.
-
-  # The home.packages option allows you to install Nix packages into your
-  # environment.
+  home.stateVersion = "24.11"; # Please read the comment before changing. The home.packages option allows you to install Nix packages into your environment.
   home.packages =  [
       pkgs.zsh-powerlevel10k pkgs.fira-code-nerdfont pkgs.clang-tools # # Adds the 'hello' command to your environment. It prints a friendly # "Hello, world!" when run. pkgs.hello
     # # It is sometimes useful to fine-tune packages, for example, by applying
@@ -64,6 +61,7 @@ home.homeDirectory = "/home/geostartico"; #  This value determines the Home Mana
     # '';
     #".config/starship.toml".source = ./starship.toml;
     #".config/nvim/init.vim".source = ./init.vim;
+    "Pictures/firepunch.png".source = ./firepunch.png;
 
   };
 
@@ -289,8 +287,58 @@ padding: 0 10px;
 }
 '';
 };
-    programs.foot = {
-        enable = true;
-        settings.main.font = "Fira Code:size=20";
+programs.foot = {
+    enable = true;
+    settings.main = {
+        font = "FiraCode Nerd Font:size=11";
     };
+};
+programs.swaylock = {
+    enable = true;
+    settings = {
+    image="$HOME/Pictures/firepunch.png";
+        scaling="fill";
+        font="FiraCode Nerd Font";
+        font-size=20;
+
+# Ring
+        indicator-radius=115;
+# line-uses-ring
+        line-color="#3b4252";
+        text-color="#d8dee9";
+        inside-color="#2e344098";
+        inside-ver-color="#5e81ac";
+        line-ver-color="#5e81ac";
+        ring-ver-color="#5e81ac98";
+        ring-color="#4c566a";
+        key-hl-color="#5e81ac";
+        separator-color="#4c566a";
+        layout-text-color="#eceff4";
+        line-wrong-color="#d08770";
+
+    };
+};
+services = {
+    swayidle = {
+      enable = true;
+      package = pkgs.swayidle;
+      timeouts = [
+        { 
+          timeout = 1070;
+          command = "swaylock";
+        }
+
+        {
+          timeout = 2000;
+          command = "'systemctl suspend'";
+        }
+      ];
+      events = [
+        {
+          event = "before-sleep";
+          command = "swaylock";
+        }
+      ];
+    };
+  };
 }
